@@ -62,7 +62,7 @@ func handle(conn net.Conn) {
 			k := fs[1]
 			delete(data, k)
 		default:
-			fmt.Println(conn, "INVALID COMMAND")
+			fmt.Fprintln(conn, "INVALID COMMAND")
 		}
 	}
 }
