@@ -28,7 +28,7 @@ func main() {
 		// we have an open stream connection
 		// how does the above reader know when it's done?
 		fmt.Println("Code got here.")
-		io.WriteString(conn, "I see you connected.")
+
 	}
 }
 
@@ -44,4 +44,10 @@ func serve(conn net.Conn) {
 			break
 		}
 	}
+	body := "Writing the message body to the connection"
+	io.WriteString(conn, "HTTP/1.1 200 OK\r\n")
+	fmt.Fprintf(conn, "Content-Length: %d\r\n", len(body))
+	fmt.Fprint(conn, "Content-Type: text/plain\r\n")
+	io.WriteString(conn, "\r\n")
+	io.WriteString(conn, body)
 }

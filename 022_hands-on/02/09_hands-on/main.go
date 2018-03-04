@@ -28,7 +28,7 @@ func main() {
 		// we have an open stream connection
 		// how does the above reader know when it's done?
 		fmt.Println("Code got here.")
-		io.WriteString(conn, "I see you connected.")
+
 	}
 }
 
@@ -44,4 +44,5 @@ func serve(conn net.Conn) {
 			break
 		}
 	}
+	io.WriteString(conn, "I see you connected.")
 }
