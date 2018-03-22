@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 
@@ -10,7 +11,7 @@ import (
 
 type user struct {
 	UserName string
-	Passwrod []byte
+	Password []byte
 	First    string
 	Last     string
 }
@@ -33,15 +34,19 @@ func main() {
 
 func index(w http.ResponseWriter, req *http.Request) {
 	u := getUser(w, req)
+	fmt.Println("Welcome to index.")
 	tpl.ExecuteTemplate(w, "index.gohtml", u)
 }
 
 func bar(w http.ResponseWriter, req *http.Request) {
+	fmt.Println("Hit the bar function.")
 	u := getUser(w, req)
 	if !alreadyLoggedIn(req) {
+		fmt.Println("You aren't logged in!")
 		http.Redirect(w, req, "/", http.StatusSeeOther)
 		return
 	}
+	fmt.Println("Welcome to the bar.")
 	tpl.ExecuteTemplate(w, "bar.gohtml", u)
 }
 
